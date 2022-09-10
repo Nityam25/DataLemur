@@ -1,0 +1,15 @@
+https://datalemur.com/questions/sql-repeat-purchases
+
+--no of users who purchased same product on two or more diff days 
+
+
+Select count(distinct user_id) as users_num from
+(Select
+user_id,
+product_id,
+count(product_id) as product_count
+from purchases
+group by user_id,
+product_id
+having count(product_id) > 2
+) s
