@@ -1,0 +1,18 @@
+https://datalemur.com/questions/duplicate-job-listings
+
+--duplicate job listings
+--two jobs at the same company with same title and description 
+
+Select count(*) as duplicate_companies from 
+(
+Select 
+company_id,
+title,
+description,
+count(job_id) as cntofjobs 
+from job_listings
+group by company_id,
+title,
+description
+having count(job_id) = 2
+) s
