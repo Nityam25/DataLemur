@@ -1,0 +1,16 @@
+https://datalemur.com/questions/teams-power-users
+
+
+--top 2 power users 
+--august 2022
+-- id of users (sender_id) and messages sent 
+
+
+Select 
+sender_id,
+count(distinct message_id) as message_count 
+from messages
+where EXTRACT(year from sent_date) = 2022 and EXTRACT(month from sent_date) = 8
+group by sender_id
+order by message_count desc 
+limit 2 
