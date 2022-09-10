@@ -1,3 +1,5 @@
+https://datalemur.com/questions/completed-trades
+
 Select 
 city,
 count(distinct trades.order_id) as cntcity
