@@ -1,0 +1,22 @@
+https://datalemur.com/questions/sql-highest-products
+
+
+--user_id, no of products purchased by top 3 customers 
+--each customer spend shd be >= 1000
+-- output user_id,no of products in desc 
+-- if 2 customers both bought 10 products then user who spent more should take precedence 
+
+
+Select 
+user_id,
+product_num 
+from 
+(Select 
+distinct user_id,
+sum(spend) over (partition by user_id) as sum_spend,
+count(product_id) over (partition by user_id) as product_num
+from user_transactions
+) s
+where sum_spend >= 1000
+order by product_num desc ,sum_spend DESC
+limit 3
