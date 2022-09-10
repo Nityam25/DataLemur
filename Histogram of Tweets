@@ -1,0 +1,20 @@
+https://datalemur.com/questions/sql-histogram-tweets
+
+
+-- year = 2022
+-- tweetcount per user bucket and no od users who fall in the bucket 
+-- 2 users tweeted once 
+
+Select
+DISTINCT
+tweet_bucket,
+count(user_id) over (PARTITION BY tweet_bucket) as user_num from 
+(SELECT
+distinct 
+user_id,
+count(tweet_id) tweet_bucket
+from tweets
+where EXTRACT(YEAR FROM tweet_date) = 2022
+group by user_id
+) s
+
