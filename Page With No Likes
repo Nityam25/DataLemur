@@ -1,0 +1,8 @@
+https://datalemur.com/questions/sql-page-with-no-likes
+
+--pages and page_likes
+-- return page_ids that do not have likes and ASC
+Select DISTINCT page_id 
+from pages 
+where page_id not in (Select distinct page_id from page_likes)
+order by page_id
