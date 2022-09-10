@@ -1,0 +1,13 @@
+https://datalemur.com/questions/sql-purchasing-activity
+
+--cumulative purchases for each product type over time 
+--output transaction date, product type,cumulative number of quantities purchased as cum_purchased
+
+--Key over here cumulative purchases for each product type over time
+
+Select 
+Order_date, 
+product_type,
+sum(quantity) over (PARTITION BY product_type order by order_date asc) as cum_purchased
+from total_trans
+order by Order_date
