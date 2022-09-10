@@ -1,0 +1,20 @@
+https://datalemur.com/questions/sql-spare-server-capacity
+
+
+--total monthly unused server capacity 
+--datacenter id in asc and total spare capacity 
+-- unused capacity = monthly_capacity - monthlydemand
+
+Select 
+distinct 
+datacenter_id,
+spare_capacity from 
+(Select 
+b.datacenter_id,
+(monthly_capacity - sum(monthly_demand) over (partition by c.datacenter_id order by c.datacenter_id))
+as "spare_capacity"
+from datacenters b 
+join forecasted_demand c on b.datacenter_id = c.datacenter_id
+) s
+where spare_capacity > 0
+order by datacenter_id
