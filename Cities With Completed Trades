@@ -1,0 +1,9 @@
+Select 
+city,
+count(distinct trades.order_id) as cntcity
+from trades
+left join users on users.user_id = trades.user_id
+where status = 'Completed'
+group by city
+order by cntcity desc
+limit 3
