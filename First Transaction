@@ -1,0 +1,15 @@
+https://datalemur.com/questions/sql-first-transaction
+
+
+Select 
+count(distinct user_id) as users
+from 
+(Select 
+transaction_date,
+user_id,
+spend,
+RANK() over (PARTITION BY user_id order by transaction_date) as ranktest 
+from user_transactions
+) s
+where ranktest = 1
+and spend >= 50
