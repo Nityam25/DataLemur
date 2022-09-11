@@ -1,0 +1,12 @@
+https://datalemur.com/questions/matching-skills
+
+Select distinct candidate_id from 
+(
+Select 
+candidate_id,
+skill
+from candidates
+where skill in ('Python', 'Tableau','PostgreSQL')
+) s 
+group by candidate_id
+having count(*) = 3
