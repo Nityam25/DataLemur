@@ -1,0 +1,13 @@
+https://datalemur.com/questions/sql-avg-review-ratings
+
+--avg stars for each product every month
+-- round two decimal
+-- sort by month and product_id 
+
+Select 
+EXTRACT(month from submit_date) as monthd,
+product_id,
+cast(avg(stars) as decimal (18,2))as avg_stars
+from reviews
+group by monthd,product_id
+order by monthd,product_id
