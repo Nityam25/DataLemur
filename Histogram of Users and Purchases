@@ -1,0 +1,19 @@
+https://datalemur.com/questions/histogram-users-purchases
+
+--no of users and total number of products bought for each trasnaction date 
+
+Select 
+transaction_date,
+count(distinct user_id) as number_of_users,
+count(distinct product_id) as number_of_products
+from 
+(Select 
+product_id,
+user_id,
+transaction_date,
+rank() over (PARTITION BY user_id order by transaction_date desc) as ranktest
+from user_transactions
+) s
+where ranktest = 1
+group by transaction_date
+order by transaction_date
