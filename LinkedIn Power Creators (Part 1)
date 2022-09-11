@@ -1,0 +1,8 @@
+https://datalemur.com/questions/linkedin-power-creators
+
+Select 
+distinct profile_id
+from personal_profiles a
+join company_pages b on a.employer_id = b.company_id
+where a.followers > b.followers
+order by profile_id
