@@ -1,0 +1,13 @@
+https://datalemur.com/questions/photoshop-revenue-analysis
+
+Select 
+customer_id,sum(revenue) as revenue
+from adobe_transactions
+where product != 'Photoshop'
+and customer_id in (
+Select 
+distinct customer_id
+from adobe_transactions
+where product = 'Photoshop'
+)
+group by customer_id
