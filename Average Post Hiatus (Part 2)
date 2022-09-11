@@ -1,0 +1,16 @@
+https://datalemur.com/questions/sql-average-post-hiatus-2
+
+
+Select 
+user_id,
+cast(avg(diffdays) as decimal(18,1)) as days_between 
+from 
+(Select 
+user_id,
+DATE_PART('day',max(post_date) - min(post_date))/(count(post_id) - 1) as diffdays 
+from posts 
+where EXTRACT(year from post_date) = 2021
+group by user_id
+having count(*) >= 2
+) s
+group by user_id
