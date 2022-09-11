@@ -1,0 +1,18 @@
+https://datalemur.com/questions/sql-app-ctr
+
+--ctr
+--2022
+
+--clicks/impressions
+Select 
+app_id,
+cast((click_sum* 1.0/impre_sum) * 100.0 as decimal(18,2)) as ctr
+from 
+(Select 
+app_id,
+sum(case when event_type = 'impression' then 1 else 0 end) as impre_sum,
+sum(case when event_type = 'click' then 1 else 0 end) as click_sum
+from events
+where EXTRACT(year from timestamp) = 2022
+group by app_id
+) s
