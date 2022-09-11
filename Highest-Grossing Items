@@ -1,0 +1,22 @@
+https://datalemur.com/questions/sql-highest-grossing
+
+Select 
+category,
+product,
+total_spend from 
+(Select 
+category,
+product,
+total_spend,
+rank() over (partition by category order by total_spend desc) as rankspend from
+(Select 
+category,
+product,
+sum(spend) as total_spend
+from product_spend
+where EXTRACT(YEAR FROM transaction_date) = 2022
+group by category,
+product
+) s
+) g
+where rankspend <= 2
