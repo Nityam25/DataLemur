@@ -1,0 +1,18 @@
+https://datalemur.com/questions/sql-third-transaction
+
+
+--THIRD transaction of every user 
+--user_id,spend,transaction_date
+
+Select 
+user_id,
+spend,
+transaction_date from 
+(Select 
+user_id,
+spend,
+transaction_date,
+rank() over (PARTITION BY user_id order by transaction_date) as ranktranscation 
+from transactions
+) s
+where ranktranscation = 3 
