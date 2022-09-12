@@ -1,0 +1,16 @@
+https://datalemur.com/questions/rolling-average-tweets
+
+Select
+distinct 
+user_id,
+tweet_date,
+cast(avg(countoftweets) over (PARTITION BY user_id order by tweet_date ROWS BETWEEN 2 PRECEDING and CURRENT ROW) as decimal(18,2)) as moving_Avg 
+from 
+(Select user_id,
+tweet_date,
+count(distinct tweet_id)  as countoftweets
+from tweets
+group  by user_id,
+tweet_date
+) s
+order by user_id,tweet_date
